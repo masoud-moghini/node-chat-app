@@ -17,6 +17,10 @@ io.on('connection',(socket)=>{
         console.log('disconnected by client');
     });
 
+
+    socket.emit('GreetingMessage',{from:'admin',text:'Thanks for joining us'});
+    socket.broadcast.emit('NewMember',{from:'admin',text:'New member joined us',createdAt:new Date().getTime()});
+    
     socket.on('createMessage',(data)=>{
         console.log(data);
         socket.emit('newMessage',{

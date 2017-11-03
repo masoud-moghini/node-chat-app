@@ -17,6 +17,15 @@
                 console.log('disconnected from server');
             });
 
+
+            socket.on('GreetingMessage',(message)=>{
+                console.log(message);
+            })
+
+
+            socket.on('NewMember',(message)=>{
+                console.log(message);
+            })
             socket.on('newMessage',(data)=>{
                 console.log(data);
 
