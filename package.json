@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "export NODE_ENV=test  && mocha --timeout 5000 server/**/*.test.js",
+    "test": "mocha server/**/*.test.js",
     "test-watch": "nodemon --exec 'npm test'",
     "start": "nodemon server/server.js"
   },
@@ -26,8 +26,8 @@
     "validator": "^8.2.0"
   },
   "devDependencies": {
-    "expect": "^1.20.2",
-    "mocha": "^3.5.2",
+    "chai": "^4.1.2",
+    "mocha": "^3.0.2",
     "supertest": "^3.0.0"
   }
 }

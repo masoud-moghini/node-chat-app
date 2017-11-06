@@ -2,6 +2,7 @@ const path = require('path');
 const express = require ('express');
 const http =require('http');
 const socketIO = require('socket.io');
+const message= require('./utils/message')
 const PORT =process.env.PORT || 3000;
 
 const app=express();
@@ -18,12 +19,12 @@ io.on('connection',(socket)=>{
     });
 
 
-    socket.emit('GreetingMessage',{from:'admin',text:'Thanks for joining us'});
-    socket.broadcast.emit('NewMember',{from:'admin',text:'New member joined us',createdAt:new Date().getTime()});
+    socket.emit('GreetingMessage',message.generateMessage('Thanks for joining us','admin'));
+    socket.broadcast.emit('NewMember',message.generateMessage('new member joined us','admin'));
     
     socket.on('createMessage',(data)=>{
         console.log(data);
-        socket.emit('newMessage',{
+        socket.broadcast.emit('newMessage',{
             from:data.from,
             text:data.text
         })
