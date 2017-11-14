@@ -6,31 +6,16 @@
     </head>
     <body>
         <p>Welcome To the chat app</p>
+        <ol id="messages">
 
+        </ol>
+        <form id="message-form">
+            <input type="text" name="message" placeholder="put your message" >
+            <button>send</button>
+        </form>
+        <button id="get-location">send location</button>
         <script src="/socket.io/socket.io.js"></script>
-        <script>var socket = io('http://localhost:3000');
-            socket.on('connect',()=>{
-                console.log('connected to a server socket');
-            });
-
-            socket.on('disconnect',()=>{
-                console.log('disconnected from server');
-            });
-
-
-            socket.on('GreetingMessage',(message)=>{
-                console.log(message);
-            })
-
-
-            socket.on('NewMember',(message)=>{
-                console.log(message);
-            })
-            socket.on('newMessage',(data)=>{
-                console.log(data);
-
-            });
-
-        </script>
+        <script src="./libs/jquery-3.2.1.min (1).js"></script>
+        <script src="./utils/communication.js"></script>
     </body>
 </html>

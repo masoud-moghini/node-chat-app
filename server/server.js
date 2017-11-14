@@ -19,10 +19,13 @@ io.on('connection',(socket)=>{
     });
 
 
-    socket.emit('GreetingMessage',message.generateMessage('Thanks for joining us','admin'));
+    socket.emit('newMessage',message.generateMessage('Thanks for joining us','admin'));
     socket.broadcast.emit('NewMember',message.generateMessage('new member joined us','admin'));
     
-    socket.on('createMessage',(data)=>{
+    socket.on('createLocationMessage',(location)=>{
+        socket.broadcast.emit('newLocationMessage',message.generateLocationMessage('Masoud',location.latitude,location.longitude))
+    })
+    socket.on('createMessage',function (data){
         console.log(data);
         socket.broadcast.emit('newMessage',{
             from:data.from,

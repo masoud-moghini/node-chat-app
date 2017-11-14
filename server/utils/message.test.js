@@ -14,3 +14,16 @@ describe('generateMessage',()=>{
         expect(Message.createdAt).to.be.a('number');
     })
 })
+
+
+describe('generateLocationMessage',()=>{
+    it('should generate correct location message',()=>{
+        var from='admin';
+        var lat=51.24;
+        var long=41.256;
+
+        var Message = message.generateLocationMessage(from,lat,long);
+        var url=`https://www.google.com/maps?q=${lat},${long}`
+        expect(Message).to.include({from,url});
+    })
+})
