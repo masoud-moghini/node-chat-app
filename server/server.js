@@ -25,12 +25,13 @@ io.on('connection',(socket)=>{
     socket.on('createLocationMessage',(location)=>{
         socket.broadcast.emit('newLocationMessage',message.generateLocationMessage('Masoud',location.latitude,location.longitude))
     })
-    socket.on('createMessage',function (data){
+    socket.on('createMessage',function (data,callback){
         console.log(data);
         socket.broadcast.emit('newMessage',{
             from:data.from,
             text:data.text
-        })
+        });
+        callback();
     })
 })
 
