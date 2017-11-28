@@ -15,11 +15,14 @@ socket.on('GreetingMessage',(message)=>{
 
 socket.on('NewMember',(message)=>{
     console.log(message);
+    var li = jQuery('<li></li>');
+    li.text(`${message.from}: in ${moment(message.createdAt).format('h : m a')} ${message.text}`);
+    jQuery('#messages').append(li);
 })
 socket.on('newMessage',(data)=>{
     console.log(data);
     var li = jQuery('<li></li>');
-    li.text(`${data.from}: ${data.text}`);
+    li.text(`${data.from}: in ${moment(data.createdAt).format('h : m a')}  ${data.text}`);
     jQuery('#messages').append(li);
 });
 
@@ -28,7 +31,7 @@ socket.on('newLocationMessage',(data)=>{
     var li =jQuery('<li></li>');
     var a = jQuery('<a target=_blank>See My Location</a>');
 
-    li.text(`${data.from}`);
+    li.text(`${data.from} at ${moment(data.createdAt).format('h:mm a')}`);
     a.attr('href',data.url);
     li.append(a);
     jQuery('#messages').append(li);
