@@ -4,7 +4,7 @@ const http =require('http');
 const socketIO = require('socket.io');
 const message= require('./utils/message')
 const PORT =process.env.PORT || 3000;
-
+const {isRealString} = require('./utils/validation')
 const app=express();
 const server = http.createServer(app);
 const io = socketIO(server);
@@ -18,9 +18,19 @@ io.on('connection',(socket)=>{
         console.log('disconnected by client');
     });
 
+    socket.on('join',(params,callback)=>{
+        if(!isRealString(params.name)||!isRealString(params.room))
+        {
+            callback('name and room name are required')
+        }
+        callback();
 
-    socket.emit('newMessage',message.generateMessage('Thanks for joining us','admin'));
-    socket.broadcast.emit('NewMember',message.generateMessage('new member joined us','admin'));
+
+        socket.join(params.room);
+        socket.emit('newMessage',message.generateMessage('Thanks for joining us','admin'));
+        socket.broadcast.to(params.room).emit('NewMember',message.generateMessage(`${params.name} joined us`,'admin'));
+    
+    })
     
     socket.on('createLocationMessage',(location)=>{
         socket.broadcast.emit('newLocationMessage',message.generateLocationMessage('Masoud',location.latitude,location.longitude))
