@@ -35,8 +35,10 @@ socket.on('connect',()=>{
 });
 
 socket.on('disconnect',()=>{
+    socket.emit('disconnect');
     console.log('disconnected from server');
 });
+
 
 
 socket.on('GreetingMessage',(message)=>{
@@ -52,6 +54,15 @@ socket.on('NewMember',(message)=>{
     scrollToBottom();
 })
 
+socket.on('updateUserList',(users)=>{
+    console.log('users list  ',users);
+    var ol = jQuery('<ol></ol>');
+    users.forEach((user)=>{
+        ol.append(jQuery('<li></li>').text(user));
+    });
+
+    jQuery('#users').html(ol)
+})
 
 socket.on('newMessage',(data)=>{
     console.log(data);
